@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LoginAplication</string>
+    <string name="login">Login</string>
+    <string name="please">Please sign in to continue.</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="title_activity_tela_cadastro">TelaCadastro</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">Sign up</string>
+    <string name="account">Don "'" t have an account?</string>
+</resources>
