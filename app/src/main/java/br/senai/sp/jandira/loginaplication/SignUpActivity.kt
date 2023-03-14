@@ -1,11 +1,9 @@
 package br.senai.sp.jandira.loginaplication
 
 import android.os.Bundle
-import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,20 +23,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.loginaplication.ui.theme.LoginAplicationTheme
 
-class MainActivity : ComponentActivity() {
+class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent{
+        setContent {
             LoginAplicationTheme {
-                LoginScreen()
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    SignUpScreen("Android")
+                }
             }
         }
     }
 }
 
-@Preview(showBackground = true,showSystemUi = true)
 @Composable
-fun LoginScreen() {
+fun SignUpScreen(name: String) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -64,29 +67,29 @@ fun LoginScreen() {
                     )
                     .size(120.dp, 40.dp)
                 )
-            }
-            Spacer(modifier = Modifier.height(87.dp))
-            //Login
-            Column(
 
-                
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = stringResource(id = R.string.login),
-                    fontSize = 48.sp,
+                Text(text = stringResource(id = R.string.sign_up_title),
+                    fontSize = 32.sp,
                     color = colorResource(id = R.color.pink),
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 17.dp)
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = stringResource(id = R.string.please),
+                    text = stringResource(id = R.string.create_new_account),
                     fontSize = 14.sp,
                     color = colorResource(id = R.color.grey),
-                    modifier = Modifier.padding(start = 17.dp)
+                    modifier = Modifier.padding(top = 5.dp)
                 )
             }
-            
-            Spacer(modifier = Modifier.height(87.dp))
+
+            Spacer(modifier = Modifier.height(50.dp))
+
 
             Column(
                 modifier = Modifier.fillMaxSize()
@@ -94,13 +97,51 @@ fun LoginScreen() {
                 OutlinedTextField(
                     value = "",
                     onValueChange = {},
-                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_email_24),
+                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_person_24),
                         contentDescription = "",
-                    tint = colorResource(id = R.color.pink))},
-                    label = { Text(text = stringResource(id = R.string.email))},
+                        tint = colorResource(id = R.color.pink)
+                    )
+                    },
+                    label = { Text(text = stringResource(id = R.string.username))},
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(17.dp),
+                        .padding(start = 17.dp, end = 17.dp, bottom = 10.dp),
+                    shape = RoundedCornerShape(16.dp)
+                )
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_phone_android_24),
+                        contentDescription = "",
+                        tint = colorResource(id = R.color.pink)
+                    )
+                    },
+                    label = {
+                        Text(text = stringResource(id = R.string.phone))
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 17.dp, end = 17.dp, bottom = 10.dp),
+                    shape = RoundedCornerShape(16.dp)
+                )
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_email_24),
+                        contentDescription = "",
+                        tint = colorResource(id = R.color.pink)
+                    )
+                    },
+                    label = {
+                        Text(text = stringResource(id = R.string.email))
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 17.dp, end = 17.dp, bottom = 10.dp),
                     shape = RoundedCornerShape(16.dp)
                 )
                 OutlinedTextField(
@@ -108,41 +149,62 @@ fun LoginScreen() {
                     onValueChange = {},
                     leadingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_lock_24),
                         contentDescription = "",
-                    tint = colorResource(id = R.color.pink))},
+                        tint = colorResource(id = R.color.pink)
+                    )
+                    },
                     label = {
                         Text(text = stringResource(id = R.string.password))
-                            },
+                    },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 17.dp, end = 17.dp),
+                        .padding(start = 17.dp, end = 17.dp, bottom = 10.dp),
                     shape = RoundedCornerShape(16.dp)
                 )
+
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Checkbox(checked = false, onCheckedChange = {},
+                        modifier = Modifier
+                            .width(27.dp)
+                            .height(27.dp)
+                            .padding(start = 25.dp),
+
+                        )
+
+                    Text(text = stringResource(id = R.string.age_question),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, top = 4.dp))
+                }
+
 
                 Column(
                     modifier = Modifier
                         .fillMaxSize(),
                     horizontalAlignment = Alignment.End
                 ) {
+
                     Button(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
-                            .padding(top = 31.dp, end = 17.dp),
+                            .padding(start = 17.dp, end = 17.dp, top = 20.dp)
+                            .fillMaxWidth()
+                            .height(48.dp),
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.pink))
 
                     ) {
                         Text(
-                            text = stringResource(id = R.string.sign_in),
+                            text = stringResource(id = R.string.create_account),
                             color = colorResource(id = R.color.white)
                         )
 
-                        Icon(painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
-                            contentDescription = "",
-                            tint = colorResource(id = R.color.white),
-                        modifier = Modifier
-                            .padding(5.dp))
+
                     }
 
                     Row(
@@ -151,14 +213,14 @@ fun LoginScreen() {
 
                     ) {
                         Text(
-                            text = stringResource(id = R.string.account),
+                            text = stringResource(id = R.string.account_question),
                             color = colorResource(id = R.color.grey),
                             modifier = Modifier
                                 .padding(end = 3.dp)
                         )
 
                         Text(
-                            text = stringResource(id = R.string.sign_up),
+                            text = stringResource(id = R.string.sign_in_button),
                             color = colorResource(id = R.color.pink),
                             modifier = Modifier
                                 .padding(start = 3.dp,end = 3.dp),
@@ -174,7 +236,7 @@ fun LoginScreen() {
                             .fillMaxSize(),
                         verticalAlignment = Alignment.Bottom
 
-                        ) {
+                    ) {
                         Box(modifier = Modifier
                             .background(
                                 colorResource(id = R.color.pink),
@@ -187,7 +249,13 @@ fun LoginScreen() {
 
             }
         }
+    }
+}
 
-
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview2() {
+    LoginAplicationTheme {
+        SignUpScreen("Android")
     }
 }

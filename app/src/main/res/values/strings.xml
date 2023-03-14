@@ -9,4 +9,13 @@
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">Sign up</string>
     <string name="account">Don "'" t have an account?</string>
+    <string name="sign_up_title">Sign Up</string>
+    <string name="create_new_account">Create a new account</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone</string>
+    <string name="age_question">Over 18?</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="account_question">Already have an account?</string>
+    <string name="sign_in_button">Sign in</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>
