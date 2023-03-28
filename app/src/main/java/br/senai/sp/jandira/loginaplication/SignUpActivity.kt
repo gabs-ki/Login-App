@@ -3,15 +3,25 @@ package br.senai.sp.jandira.loginaplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -21,6 +31,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.loginaplication.components.BottomShape
+import br.senai.sp.jandira.loginaplication.components.TopShape
 import br.senai.sp.jandira.loginaplication.ui.theme.LoginAplicationTheme
 
 class SignUpActivity : ComponentActivity() {
@@ -60,17 +72,11 @@ fun SignUpScreen(name: String) {
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                Box(modifier = Modifier
-                    .background(
-                        colorResource(id = R.color.pink),
-                        shape = RoundedCornerShape(bottomStart = 16.dp)
-                    )
-                    .size(120.dp, 40.dp)
-                )
-
+                TopShape()
             }
 
             Spacer(modifier = Modifier.height(10.dp))
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -86,6 +92,49 @@ fun SignUpScreen(name: String) {
                     color = colorResource(id = R.color.grey),
                     modifier = Modifier.padding(top = 5.dp)
                 )
+                Box (
+                    modifier = Modifier.size(100.dp),
+                    contentAlignment = Alignment
+                        .BottomEnd
+                ){
+                    Card(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .align(alignment = Alignment.TopEnd),
+                        shape = CircleShape,
+                        border = BorderStroke(
+                            width = 1.dp,
+                            brush = Brush.horizontalGradient(listOf(Color.Magenta,Color.White))
+                        )
+                    ) {
+
+                    }
+                    Image(
+                        imageVector = Icons.Default.Person,
+                        colorFilter = ColorFilter.tint(Color.Magenta),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(92.dp)
+                            .align(Alignment.Center)
+                    )
+
+                   Card(
+                       modifier = Modifier
+                           .size(30.dp)
+                           .align(alignment = Alignment.BottomEnd)
+
+                   ) {
+
+                      Image(
+                          painter = painterResource(id = R.drawable.wallpaper),
+                          contentDescription = "",
+                          modifier = Modifier
+                              .size(30.dp)
+
+                      )
+                   }
+
+                }
             }
 
             Spacer(modifier = Modifier.height(50.dp))
@@ -237,13 +286,7 @@ fun SignUpScreen(name: String) {
                         verticalAlignment = Alignment.Bottom
 
                     ) {
-                        Box(modifier = Modifier
-                            .background(
-                                colorResource(id = R.color.pink),
-                                shape = RoundedCornerShape(topEnd = 16.dp)
-                            )
-                            .size(120.dp, 40.dp)
-                        )
+                        BottomShape()
                     }
                 }
 

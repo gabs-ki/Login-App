@@ -6,20 +6,22 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.loginaplication.dao.repository.CategorieRepository
+import br.senai.sp.jandira.loginaplication.model.Categories
 import br.senai.sp.jandira.loginaplication.ui.theme.LoginAplicationTheme
 
 class HomeActivity : ComponentActivity() {
@@ -28,7 +30,8 @@ class HomeActivity : ComponentActivity() {
         setContent {
             LoginAplicationTheme {
                 // A surface container using the 'background' color from the theme
-                HomeScreen()
+                HomeSc()
+
             }
         }
     }
@@ -36,23 +39,35 @@ class HomeActivity : ComponentActivity() {
 
 
 
-@Preview(showBackground = true, showSystemUi = true)
+
 @Composable
-fun HomeScreen() {
-  Surface(modifier = Modifier.fillMaxSize()) {
+@Preview(showBackground = true, showSystemUi = true)
+fun HomeSc(){
+    HomeScreen(categories = CategorieRepository.getCategoriesList())
+}
+
+@Composable
+fun HomeScreen(categories: List<Categories>) {
+  Surface(
+      modifier = Modifier
+          .fillMaxSize()
+  ) {
       Box(
           modifier = Modifier
               .fillMaxWidth()
               .height(300.dp),
       ) {
-          Image(painter = painterResource(id = R.drawable.paris), contentDescription = "")
+          Image(
+              painter = painterResource(id = R.drawable.paris),
+              contentDescription = ""
+          )
       }
 
       Column(
-          modifier = Modifier.fillMaxSize()
-      ,
-      verticalArrangement = Arrangement.SpaceBetween) {
-
+          modifier = Modifier
+              .fillMaxSize(),
+      verticalArrangement = Arrangement.SpaceBetween
+      ) {
       }
 
       Column (
@@ -60,6 +75,7 @@ fun HomeScreen() {
           modifier = Modifier
               .padding(13.dp)
               ) {
+          
           Column( modifier = Modifier
               .height(62.dp)
               .width(62.dp)
@@ -93,8 +109,27 @@ fun HomeScreen() {
                   modifier = Modifier.padding(1.dp),
                   colorResource(id = R.color.white))
           }
+
+          LazyRow(
+              modifier = Modifier.fillMaxWidth()
+          ){
+            items(categories) {categories ->
+                Card(
+                    modifier = Modifier.fillMaxSize(),
+                    backgroundColor = Color(
+                        35,
+                        143,
+                        216,
+                        255
+                    )
+                ) {
+
+                }
+            }
+          }
       }
-      
+
+
 
   }
 }
