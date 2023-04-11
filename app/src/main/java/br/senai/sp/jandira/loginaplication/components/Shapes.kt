@@ -17,8 +17,7 @@ import androidx.compose.ui.unit.dp
 fun TopShape() {
     Box(modifier = Modifier
         .background(
-            brush = Brush.horizontalGradient(
-                colors = listOf(Color.Magenta,Color.Green)),
+            color = Color(217, 0, 255, 255),
             shape = RoundedCornerShape(bottomStart = 16.dp)
         )
         .size(120.dp, 40.dp)
