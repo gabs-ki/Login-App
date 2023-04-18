@@ -1,11 +1,17 @@
 package br.senai.sp.jandira.loginaplication
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
@@ -26,6 +32,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -42,6 +49,8 @@ import br.senai.sp.jandira.loginaplication.components.TopShape
 import br.senai.sp.jandira.loginaplication.model.User
 import br.senai.sp.jandira.loginaplication.repository.UserRepository
 import br.senai.sp.jandira.loginaplication.ui.theme.LoginAplicationTheme
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.google.android.material.circularreveal.CircularRevealHelper.Strategy
 
 class SignUpActivity : ComponentActivity() {
@@ -61,6 +70,7 @@ class SignUpActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("RememberReturnType")
 @Composable
 fun SignUpScreen(name: String) {
 
@@ -83,6 +93,24 @@ fun SignUpScreen(name: String) {
     var over18State by remember {
         mutableStateOf(value = false)
     }
+
+    //Obter foto da galeria de imagens
+    var photoUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    //Criar o objeto que abrirá a galeria o retornára,
+    // a Uri da imagem selecionada
+
+    val laucher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ){
+        photoUri = it
+    }
+
+    var painter = rememberAsyncImagePainter(
+        ImageRequest.Builder(LocalContext.current).data(photoUri).build()
+    )
 
     var context = LocalContext.current
 
@@ -146,16 +174,17 @@ fun SignUpScreen(name: String) {
                                 brush = Brush.horizontalGradient(listOf(Color.Magenta,Color.White))
                             )
                         ) {
-
+                            Image(
+                                painter = painter,
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .size(92.dp)
+                                    .align(Alignment.Center),
+                                contentScale = ContentScale.Crop
+                            )
                         }
-                        Image(
-                            imageVector = Icons.Default.Person,
-                            colorFilter = ColorFilter.tint(Color.Magenta),
-                            contentDescription = "",
-                            modifier = Modifier
-                                .size(92.dp)
-                                .align(Alignment.Center)
-                        )
+
+
 
                         Card(
                             modifier = Modifier
@@ -164,12 +193,15 @@ fun SignUpScreen(name: String) {
 
                         ) {
 
+
                             Image(
                                 painter = painterResource(id = R.drawable.wallpaper),
                                 contentDescription = "",
                                 modifier = Modifier
                                     .size(30.dp)
-
+                                    .clickable {
+                                        laucher.launch("image/*")
+                                    }
                             )
                         }
 
@@ -309,7 +341,9 @@ fun SignUpScreen(name: String) {
                         //Texto de baixo
                         Row(
                             modifier = Modifier
-                                .padding(top = 31.dp, end = 17.dp)
+                                .padding(top = 31.dp, end = 17.dp),
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.CenterVertically
 
                         ) {
                             Text(
@@ -319,13 +353,21 @@ fun SignUpScreen(name: String) {
                                     .padding(end = 3.dp)
                             )
 
-                            Text(
-                                text = stringResource(id = R.string.sign_in_button),
-                                color = colorResource(id = R.color.pink),
-                                modifier = Modifier
-                                    .padding(start = 3.dp,end = 3.dp),
-                                fontWeight = FontWeight.Bold
-                            )
+                            TextButton(
+                                onClick = {
+                                    var openSignIn = Intent(context, MainActivity::class.java)
+                                    context.startActivity(openSignIn)
+                                }
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.sign_in_button),
+                                    color = colorResource(id = R.color.pink),
+                                    modifier = Modifier
+                                        .padding(start = 3.dp,end = 3.dp),
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
                         }
 
 

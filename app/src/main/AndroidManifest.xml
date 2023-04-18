@@ -18,21 +18,13 @@
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.LoginAplication" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SignUpActivity"
             android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.LoginAplication" />
         <activity
-            android:name=".signupAplication"
-            android:exported="false" />
-        <activity
-            android:name=".TelaCadastro"
-            android:exported="false"
-            android:label="@string/title_activity_tela_cadastro"
-            android:theme="@style/Theme.LoginAplication" />
-        <activity
-            android:name=".SignUpActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
