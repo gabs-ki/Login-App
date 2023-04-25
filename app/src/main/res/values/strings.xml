@@ -18,4 +18,6 @@
     <string name="account_question">Already have an account?</string>
     <string name="sign_in_button">Sign in</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="categories">Categories</string>
+    <string name="search_your_destiny">Search your destiny</string>
 </resources>
